@@ -1,40 +1,38 @@
-// Functional component that displays detailed information about a single country
-function CountryDetail() {
+import { useParams, Link } from "react-router-dom";
+
+function CountryDetail({ countries }) {
+  const countryName = useParams().name;
+
+  const country = countries.find(
+    (c) =>
+      c.name.common.toLowerCase() === countryName.toLowerCase()
+  );
+
+  if (!country) {
+    return <h2>Country not found</h2>;
+  }
+
   return (
-    // Main container for the detail page
     <div className="detail-container">
 
-      {/* Button to navigate back to the previous page */}
-      <button className="back-button">← Back</button>
-
-      {/* Wrapper for the main content (flag + info) */}
       <div className="detail-content">
 
-        {/* Country flag image */}
         <img
-          src="https://flagcdn.com/w320/de.png"
-          alt="Country flag"
+          src={country.flags?.png}
+          alt={`${country.name.common} flag`}
         />
 
-        {/* Container for textual country information */}
         <div className="detail-info">
+          <h1>{country.name.common}</h1>
 
-          {/* Country name heading */}
-          <h1>Country Name</h1>
-
-          {/* Country population information */}
-          <p><strong>Population:</strong> 81,000,000</p>
-
-          {/* Region the country belongs to */}
-          <p><strong>Region:</strong> Europe</p>
-
-          {/* Capital city of the country */}
-          <p><strong>Capital:</strong> Berlin</p>
+          <p><strong>Population:</strong> {country.population}</p>
+          <p><strong>Region:</strong> {country.region}</p>
+          <p><strong>Capital:</strong> {country.capital}</p>
         </div>
+
       </div>
     </div>
   );
 }
 
-// Export component so it can be used in routing or other components
 export default CountryDetail;

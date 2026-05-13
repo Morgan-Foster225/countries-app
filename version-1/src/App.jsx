@@ -1,48 +1,53 @@
-// Import React Router components for routing and navigation
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-// Import page components
 import Home from "./pages/Home";
 import SavedCountries from "./pages/SavedCountries";
 import CountryDetail from "./pages/CountryDetail";
 
-// Import global styles
 import "./App.css";
 
-// Main App component that handles routing
 function App() {
+  const [countries, setCountries] = useState([]);
+
+  //  Function to fetch API data
+  const fetchCountries = async () => {
+    try {
+      const response = await fetch(
+        "https://restcountries.com/v3.1/all?fields=name,flags,population,capital,region,cca3,borders"
+      );
+      const data = await response.json();
+      setCountries(data);
+    } catch (error) {
+      console.error("Error fetching countries:", error);
+    }
+  };
+
+  //  Run on page load
+  useEffect(() => {
+    fetchCountries();
+  }, []);
+
   return (
-    // Router wraps the entire application to enable navigation
     <Router>
-
-      {/* Header section shown on all pages */}
       <header className="header">
-
-        {/* Logo link redirects to home page */}
         <Link to="/" className="logo">
           Where in the World?
         </Link>
 
-        {/* Link to saved countries page */}
-        <Link to="/saved" className="saved">Saved Countries</Link>
+        <Link to="/saved" className="saved">
+          Saved Countries
+        </Link>
       </header>
 
-      {/* Define application routes */}
+      {/*  Pass API data into all pages */}
       <Routes>
-
-        {/* Home page route */}
-        <Route path="/" element={<Home />} />
-
-        {/* Saved countries page route */}
-        <Route path="/saved" element={<SavedCountries />} />
-
-        {/* Country detail page route with dynamic URL parameter */}
-        <Route path="/country/:name" element={<CountryDetail />} />
-
+        <Route path="/" element={<Home countries={countries} />} />
+        <Route path="/saved" element={<SavedCountries countries={countries} />} />
+        <Route path="/country/:name" element={<CountryDetail countries={countries} />} />
       </Routes>
     </Router>
   );
 }
 
-// Export App component as the root of the application
 export default App;

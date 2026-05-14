@@ -116,6 +116,11 @@ header h1 {
 }
 
 /* SAVED COUNTRIES PAGE */
+a.saved{
+  text-decoration: none;
+  color:#000;
+  
+}
 .countries-container {
   padding: 30px 60px;
 }

@@ -1,8 +1,6 @@
 // Import Link for client-side navigation (React Router)
 import { Link } from "react-router-dom";
-function compareLetters(a, b) {
-  return a - b;
-}
+
 // Functional component that displays a single country card
 function CountryCard({ country }) {
   // Destructure needed properties from the country object

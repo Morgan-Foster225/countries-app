@@ -40,7 +40,7 @@ function App() {
     }
   };
 
-  // Run fetchCountries() once when the component mounts
+  // Run fetchCountries() once when the component loads
   useEffect(() => {
     fetchCountries();
   }, []);

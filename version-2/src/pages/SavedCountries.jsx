@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../App.css";
 
-// Functional React component that displays a list of saved countries
+// Function that displays a list of saved countries
 function SavedCountries({ countries = [] }) {
   // State f frorm imputs 
   const [formData, setFormData] = useState({

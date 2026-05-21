@@ -3,7 +3,7 @@ import "../App.css";
 
 // Function that displays a list of saved countries
 function SavedCountries({ countries = [] }) {
-  // State f frorm imputs 
+  // State form imputs 
   const [formData, setFormData] = useState({
     name: "",
     email: "",

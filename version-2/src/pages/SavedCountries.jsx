@@ -18,7 +18,7 @@ function SavedCountries({ countries = [] }) {
   const getUserNewestInfo = async () => {
     try {
       const response = await fetch(
-        "https://backend-answer-keys.onrender.com/get-newest-user"
+        "/api/get-newest-user"
       );
       const data = await response.json();
 
@@ -38,7 +38,7 @@ function SavedCountries({ countries = [] }) {
   // store user data using API POST request
   const storeUserData = async (data) => {
     try {
-      await fetch("https://backend-answer-keys.onrender.com/add-one-user", {
+      await fetch("api/add-one-user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

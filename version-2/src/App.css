@@ -45,6 +45,10 @@ h2{
   font-size: 20px;
   font-weight:100px;
 }
+a{
+  color:#000;
+  text-decoration: none;
+}
 /* SEARCH + FILTER */
 .search-filter {
   display: flex;
@@ -188,6 +192,71 @@ a.saved{
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
+
+/* CARD */
+.card {
+  width: 100%;
+  max-width: 320px;
+text-decoration: none;
+  background: #fff;
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  text-decoration: none;
+  color: #111;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+/* FLAG IMAGE */
+.card img {
+  width: 100%;
+  height: 190px;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+/* CARD BODY */
+.card-body {
+  padding: 24px;
+}
+
+/* COUNTRY NAME */
+.card-body h3 {
+  font-size: 24px;
+  font-weight: 700;
+
+  margin-bottom: 20px;
+
+  color: #111;
+}
+
+/* COUNTRY INFO */
+.card-body p {
+  font-size: 16px;
+
+  margin-bottom: 12px;
+
+  color: #444;
+
+  line-height: 1.5;
+}
+
+.card-body strong {
+  color: #111;
+  font-weight: 600;
+}
+
+
 /* Textarea size */
 .profile-form textarea {
   min-height: 180px;
@@ -217,6 +286,7 @@ a.saved{
   opacity: 0.9;
   transform: translateY(-2px);
 }
+
 
 
 /* RESPONSIVE */

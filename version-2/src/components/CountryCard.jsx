@@ -1,6 +1,6 @@
 // Import Link for client-side navigation (React Router)
 import { Link } from "react-router-dom";
-
+import "../App.css";
 // Functional component that displays a single country card
 function CountryCard({ country }) {
   // Destructure needed properties from the country object
@@ -14,16 +14,21 @@ function CountryCard({ country }) {
 
   return (
     // Wrap the entire card in a Link so it navigates to the country detail page
-    <Link to={`/country/${name.common}`} className="card">
-
+     <Link to={`/country/${name.common}`} className="country-detail-card">
       {/* Country flag image */}
-      <img src={flags.png} alt={name.common} />
-
+        {/* LEFT SIDE - FLAG */}
+    <div className="flag-container">
+      <img
+        src={flags.png}
+        alt={name.common}
+      />
+    </div>
       {/* Card content section */}
-      <div className="card-body">
+      <div className="country-body">
 
         {/* Country name */}
         <h3>{name.common}</h3>
+
 
         {/* Population with formatting for readability (e.g., 1,000,000) */}
         <p>

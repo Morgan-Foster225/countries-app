@@ -311,3 +311,183 @@ text-decoration: none;
     width: 100%;
   }
 }
+
+
+/* ===================================
+   COUNTRY DETAIL PAGE
+=================================== */
+
+.detail-container {
+  min-height: 100vh;
+  background: #f3f3f3;
+
+  padding: 30px 60px;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  display: inline-block;
+
+  padding: 14px 34px;
+
+  background: white;
+
+  border-radius: 10px;
+
+  text-decoration: none;
+  color: #111;
+
+  font-size: 20px;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+
+  transition: 0.2s ease;
+
+  margin-bottom: 50px;
+}
+
+.back-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* MAIN LAYOUT */
+.detail-content {
+  display: flex;
+  align-items: center;
+
+  gap: 90px;
+}
+
+/* FLAG BOX */
+.detail-flag {
+  width: 560px;
+  height: 340px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* FLAG IMAGE */
+.detail-flag img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  border-radius: 12px;
+}
+
+/* RIGHT SIDE */
+.detail-info {
+  display: flex;
+  flex-direction: column;
+
+  gap: 24px;
+
+  min-width: 320px;
+}
+
+/* COUNTRY NAME */
+.detail-info h1 {
+  font-size: 52px;
+  font-weight: 700;
+
+  color: #111;
+
+  margin: 0;
+}
+
+/* TEXT */
+.detail-info p {
+  font-size: 22px;
+  color: #333;
+
+  margin: 0;
+
+  line-height: 1.5;
+}
+
+/* SAVE BUTTON */
+.save-btn {
+  width: fit-content;
+
+  padding: 14px 34px;
+
+  background: white;
+
+  border: none;
+  border-radius: 10px;
+
+  font-size: 20px;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+
+  transition: 0.2s ease;
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* BORDER SECTION */
+.border-section {
+  margin-top: 8px;
+}
+
+/* BORDER BUTTON CONTAINER */
+.border-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 14px;
+
+  margin-top: 14px;
+}
+
+/* BORDER BUTTON */
+.border-btn {
+  padding: 14px 28px;
+
+  background: white;
+
+  border: none;
+  border-radius: 10px;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+
+  transition: 0.2s ease;
+}
+
+.border-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 950px) {
+  .detail-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .detail-flag {
+    width: 100%;
+    height: auto;
+  }
+
+  .detail-flag img {
+    height: auto;
+  }
+}

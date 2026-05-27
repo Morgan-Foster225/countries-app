@@ -15,7 +15,7 @@ import "./App.css";
 function App() {
   // State to store all countries fetched from the API
   const [countries, setCountries] = useState([]);
-
+  const [savedCountries, setSavedCountries] = useState([]);
   // Function to fetch country data from the API
  const fetchCountries = async () => {
   try {
@@ -31,6 +31,18 @@ function App() {
     console.error("Error fetching countries:", error);
   }
 };
+
+  // Function to save a country
+  const handleSaveCountry = (country) => {
+
+    // Add country to saved list
+    setSavedCountries([
+      ...savedCountries,
+      country,
+    ]);
+  };
+
+
 
   // Run fetchCountries() once when the component loads
   useEffect(() => {
@@ -52,22 +64,30 @@ function App() {
         </Link>
       </header>
 
+
       {/* Define routes and pass countries data as props */}
       <Routes>
         {/* Home page */}
         <Route path="/" element={<Home countries={countries} />} />
 
-        {/* Saved countries page */}
-        <Route
-          path="/saved"
-          element={<SavedCountries countries={countries} />}
-        />
+        
 
-        {/* Country detail page (dynamic route using :name) */}
-        <Route
-          path="/country/:name"
-          element={<CountryDetail countries={countries} />}
-        />
+        {/* Saved countries page */}
+     <Route
+  path="/saved"
+  element={<SavedCountries countries={savedCountries} />}
+/>
+
+    
+<Route
+  path="/country/:name"
+  element={
+    <CountryDetail
+      countries={countries}
+      onSave={handleSaveCountry}
+    />
+  }
+/>
       </Routes>
     </Router>
   );

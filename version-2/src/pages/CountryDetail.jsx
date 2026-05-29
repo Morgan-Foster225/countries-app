@@ -35,10 +35,7 @@ function CountryDetail({ countries, onSave }) {
 
         <h1>{country.name.common}</h1>
 
-<button
-  className="save-btn"
-  onClick={() => onSave(country)}
->
+<button onClick={() => onSave(country)}>
   Save
 </button>
 

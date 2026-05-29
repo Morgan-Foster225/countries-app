@@ -1,6 +1,6 @@
-==================================
+
 🧠 VERSION 2 PSEUDO-CODE WORKSHEET
-==================================
+
 
 This is our WHAT, WHEN, WHERE, HOW framework for working with data:
 
@@ -26,13 +26,12 @@ This is our WHAT, WHEN, WHERE, HOW framework for working with data:
 
 ✨ YOUR TASK: Fill in the answers to each WHAT/WHEN/WHERE/HOW question below for the 3 pieces of data.
 
-==================================
 📊 FORM DATA
-==================================
 
-========================
+
+
 🔶 STORING FORM DATA
-========================
+
 
 ❓ WHAT...
 TYPE OF HTTP REQUEST (GET OR POST): Post 
@@ -61,9 +60,9 @@ Step 3:Async - await ... try -  catch
 Step 4: Send a post request 
 Add more steps as needed!
 
-========================
+
 🔶 RETRIEVING FORM DATA
-========================
+
 ❓ WHAT...
 TYPE OF HTTP REQUEST (GET OR POST): GET
 API ENDPOINT: get-newest-user
@@ -95,13 +94,13 @@ Step 4: useEffect with empdy dependency array
 
 Add more steps as needed!
 
-===================================
-📊 SAVED COUNTRIES DATA
-===================================
 
-========================
+📊 SAVED COUNTRIES DATA
+
+
+
 🔶 STORING SAVED COUNTRIES DATA
-========================
+
 
 ❓ WHAT...
 TYPE OF HTTP REQUEST (GET OR POST): POST
@@ -132,9 +131,9 @@ Step 7: Wait for the backend response
 Step 8: If successful, optionally update state or show a success message
 Step 9: If there is an error, show an error message in the console or UI
 
-========================
+
 🔶 RETRIEVING SAVED COUNTRIES DATA
-========================
+
 
 ❓ WHAT...
 TYPE OF HTTP REQUEST (GET OR POST):GET
@@ -173,13 +172,13 @@ Step 9: Render the saved countries in JSX using map()
 Step 10: Handle loading states or errors if needed
 Add more steps as needed!
 
-=================================
-📊 COUNTRY COUNTS DATA
-=================================
 
-========================
+📊 COUNTRY COUNTS DATA
+
+
+
 🔶 STORING & RETRIEVING COUNTRY COUNTS DATA
-========================
+
 NOTE: We combine storing & retrieving country counts data into one section because they always happen together. Each time we look up a country’s view count, we also need to increase it and save the new total.
 
 ❓ WHAT...

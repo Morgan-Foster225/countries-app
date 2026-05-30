@@ -476,6 +476,33 @@ text-decoration: none;
 .border-btn:hover {
   transform: translateY(-2px);
 }
+.country-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heart-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.heart-icon {
+  font-size: 28px;
+  color: gray;
+  transition: all 0.2s ease;
+}
+
+.heart-icon.saved {
+  color: #ed4956;
+}
+
+.heart-btn:hover .heart-icon {
+  transform: scale(1.15);
+}
+
 
 /* RESPONSIVE */
 @media (max-width: 950px) {

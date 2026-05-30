@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import "../App.css";
 
 // Function that displays a list of saved countries
@@ -23,7 +24,7 @@ function SavedCountries({ countries = [] }) {
     try {
 
       const response = await fetch(
-        "https://backend-answer-keys.onrender.com/get-newest-user"
+        "api/get-newest-user"
       );
 
       const data = await response.json();
@@ -41,7 +42,7 @@ function SavedCountries({ countries = [] }) {
     try {
 
       const response = await fetch(
-        "https://backend-answer-keys.onrender.com/get-all-saved-countries"
+        "api/get-all-saved-countries"
       );
 
       // convert response into JSON
@@ -54,6 +55,40 @@ function SavedCountries({ countries = [] }) {
       console.error("GET saved countries failed:", error);
     }
   };
+
+
+   const toggleSavedCountry = async (countryName) => {
+
+    const isSaved = savedCountries.some(
+      (country) => country.country_name === countryName
+    );
+
+    try {
+
+      if (isSaved) {
+
+        // remove country
+        setSavedCountries(
+          savedCountries.filter(
+            (country) => country.country_name !== countryName
+          )
+        );
+
+      } else {
+
+        // add country
+        setSavedCountries([
+          ...savedCountries,
+          { country_name: countryName },
+        ]);
+      }
+
+    } catch (error) {
+      console.error("Toggle failed:", error);
+    }
+  };
+
+
 
   // Update the state when input values change
   const handleInputChange = (e) => {
@@ -71,7 +106,7 @@ function SavedCountries({ countries = [] }) {
     try {
 
       await fetch(
-        "https://backend-answer-keys.onrender.com/add-one-user",
+        "api/add-one-user",
         {
           method: "POST",
 
@@ -183,9 +218,29 @@ function SavedCountries({ countries = [] }) {
         <p>No saved countries yet.</p>
       ) : (
         savedCountries.map((country, index) => (
-          <div key={index} className="card">
-            <h2>{country.country_name}</h2>
-          </div>
+        <div key={index} className="card">
+
+  <div className="country-card-header">
+
+    <h2>{country.country_name}</h2>
+
+    <button
+      type="button"
+      className="heart-btn"
+      onClick={() => toggleSavedCountry(country.country_name)}
+    >
+      {savedCountries.some(
+        (saved) => saved.country_name === country.country_name
+      ) ? (
+        <FaHeart className="heart-icon saved" />
+      ) : (
+        <FaRegHeart className="heart-icon" />
+      )}
+    </button>
+
+  </div>
+
+</div>
         ))
       )}
 

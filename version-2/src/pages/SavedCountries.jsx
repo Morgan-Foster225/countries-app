@@ -18,7 +18,13 @@ function SavedCountries({ countries = [] }) {
 
   // state variable for saved countries from backend
   const [savedCountries, setSavedCountries] = useState([]);
-
+  
+  const savedCountryDetails = savedCountries.map((saved) =>
+  countries.find(
+    (country) =>
+      country.name.common === saved.country_name
+  )
+).filter(Boolean);
   // write a function, use async await, use try... catch, fetch request
   const getUserNewestInfo = async () => {
     try {
@@ -57,38 +63,83 @@ function SavedCountries({ countries = [] }) {
   };
 
 
-   const toggleSavedCountry = async (countryName) => {
+ const toggleSavedCountry = async (countryName) => {
+  const isSaved = savedCountries.some(
+    (country) => country.country_name === countryName
+  );
 
-    const isSaved = savedCountries.some(
-      (country) => country.country_name === countryName
+  try {
+    if (isSaved) {
+      await fetch(
+        "/api/unsave-one-country",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            country_name: countryName,
+          }),
+        }
+      );
+
+      setSavedCountries(
+        savedCountries.filter(
+          (country) => country.country_name !== countryName
+        )
+      );
+    } else {
+      await fetch(
+        "/api/save-one-country",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            country_name: countryName,
+          }),
+        }
+      );
+
+      fetchSavedCountries();
+    }
+  } catch (error) {
+    console.error("Toggle failed:", error);
+  }
+};
+
+// Function to save a country
+const handleSaveCountry = async (country) => {
+
+  try {
+
+    const response = await fetch(
+      "/api/save-one-country",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          country_name: country.name.common,
+        }),
+      }
     );
 
-    try {
+    const data = await response.json();
 
-      if (isSaved) {
+    console.log("Save response:", data);
 
-        // remove country
-        setSavedCountries(
-          savedCountries.filter(
-            (country) => country.country_name !== countryName
-          )
-        );
+    alert("Country saved!");
 
-      } else {
+  } catch (error) {
+    console.error("Save failed:", error);
+  }
 
-        // add country
-        setSavedCountries([
-          ...savedCountries,
-          { country_name: countryName },
-        ]);
-      }
-
-    } catch (error) {
-      console.error("Toggle failed:", error);
-    }
-  };
-
-
+};
 
   // Update the state when input values change
   const handleInputChange = (e) => {
@@ -155,10 +206,14 @@ function SavedCountries({ countries = [] }) {
     getUserNewestInfo();
 
 
+
   }, []);
 
-  return (
 
+  console.log("countries prop:", countries);
+console.log("savedCountries:", savedCountries);
+console.log("savedCountryDetails:", savedCountryDetails);
+  return (
   <div className="countries-container">
 
     {/* PROFILE FORM */}
@@ -208,46 +263,54 @@ function SavedCountries({ countries = [] }) {
       </button>
 
     </form>
-
-    {/* SAVED COUNTRIES SECTION */}
+    
+ {/* SAVED COUNTRIES SECTION */}
     <div className="saved-countries-section">
 
       <h2>My Saved Countries</h2>
 
-      {savedCountries.length === 0 ? (
+      {savedCountryDetails.length === 0 ? (
         <p>No saved countries yet.</p>
       ) : (
-        savedCountries.map((country, index) => (
-        <div key={index} className="card">
+        <div className="saved-countries-grid">
 
-  <div className="country-card-header">
+          {savedCountryDetails.map((country) => (
+            <div
+              key={country.cca3}
+              className="saved-country-card"
+            >
+              <img
+                className="saved-country-flag"
+                src={country.flags.png}
+                alt={`${country.name.common} flag`}
+              />
 
-    <h2>{country.country_name}</h2>
+              <h3>{country.name.common}</h3>
 
-    <button
-      type="button"
-      className="heart-btn"
-      onClick={() => toggleSavedCountry(country.country_name)}
-    >
-      {savedCountries.some(
-        (saved) => saved.country_name === country.country_name
-      ) ? (
-        <FaHeart className="heart-icon saved" />
-      ) : (
-        <FaRegHeart className="heart-icon" />
-      )}
-    </button>
+              <p>
+                <strong>Population:</strong>{" "}
+                {country.population.toLocaleString()}
+              </p>
 
-  </div>
+              <p>
+                <strong>Capital:</strong>{" "}
+                {country.capital?.[0] || "N/A"}
+              </p>
 
-</div>
-        ))
+              <p>
+                <strong>Region:</strong>{" "}
+                {country.region}
+              </p>
+            </div>
+          ))}
+
+        </div>
       )}
 
     </div>
 
   </div>
 );
-};
 
+}
 export default SavedCountries;

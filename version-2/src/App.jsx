@@ -51,24 +51,31 @@ function App() {
   }, []);
 
 // Function to save a country
-const handleSaveCountry = (country) => {
+const handleSaveCountry = async (country) => {
 
-  // Check if country already exists
-  const exists = savedCountries.some(
-    (saved) => saved.cca3 === country.cca3
-  );
+  try {
 
-  // Stop function if already saved
-  if (exists) {
-    alert("Country already saved!");
-    return;
+    await fetch(
+      "/api/save-one-country",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          country_name: country.name.common,
+        }),
+      }
+    );
+
+    alert("Country saved!");
+
+  } catch (error) {
+    console.error("Save failed:", error);
   }
 
-  // Add new country into savedCountries array
-  const updatedSavedCountries = [
-    ...savedCountries,
-    country,
-  ];
 
   // Save updated array into React state
   setSavedCountries(updatedSavedCountries);
@@ -110,14 +117,15 @@ const handleSaveCountry = (country) => {
         />
 
         {/* Saved countries page */}
-        <Route
-          path="/saved"
-          element={
-            <SavedCountries
-              countries={savedCountries}
-            />
-          }
-        />
+      {/* Saved countries page */}
+<Route
+  path="/saved"
+  element={
+    <SavedCountries
+      countries={countries}
+    />
+  }
+/>
 
         {/* Country detail page (dynamic route using :name) */}
         <Route

@@ -1,17 +1,56 @@
 import { useParams, Link } from "react-router-dom";
 
+import { useState, useEffect } from "react";
+
 function CountryDetail({ countries, onSave }) {
   const countryName = useParams().name;
+
+  const [viewCount, setViewCount] = useState(0); 
 
   const country = countries.find(
     (c) =>
       c.name.common.toLowerCase() === countryName.toLowerCase()
   );
 
+ // Runs whenever the country page is opened
+  useEffect(() => {
+    async function updateViewCount() {
+      try {
+        // Send a POST request to update the country's view count
+        const response = await fetch(
+          "/api/update-one-country-count",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            // Send the country's name to the API
+            body: JSON.stringify({
+              country_name: country.name.common,
+            }),
+          }
+        );
+
+        // Convert response to JSON
+        const data = await response.json();
+
+        // Update state with the new count returned by the API
+        setViewCount(data.count);
+      } catch (error) {
+        console.error("Error updating count:", error);
+      }
+    }
+
+    // Only run if a country was found
+    if (country) {
+      updateViewCount();
+    }
+  }, [country]);
+
+  // Display message if country is not found
   if (!country) {
     return <h2>Country not found</h2>;
   }
-
   return (
   <div className="detail-container">
 
@@ -52,11 +91,12 @@ function CountryDetail({ countries, onSave }) {
         <p>
           <strong>Region:</strong> {country.region}
         </p>
-
-        <p>
-          <strong>Viewed:</strong> 0 times
-        </p>
-
+        
+ <p>
+  <strong>Viewed:</strong> {viewCount} times
+</p>
+      
+  
           </div>
         </div>
 
